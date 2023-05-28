@@ -1,11 +1,20 @@
+const refs = {
+select: document.querySelector(".breed-select"),
+loader: document.querySelector(".loader")
+}
+
+const select = document.querySelector(".breed-select");
+const loader = document.querySelector(".loader");
+
+
+function fetchBreeds() {
+
 const BASE_URL = 'https://api.thecatapi.com/v1';
 const API_KEY =
   'live_Yev63kKIKQlvuwfV91tmMhA4RcWdQRKBtpQEc40LBA3Gqtc0uo9ZdRzJSAOtGlda';
 
-const select = document.querySelector(".breed-select");
 // console.log(select)
 
-function fetchBreeds() {
   return fetch(`${BASE_URL}/breeds?api_key=${API_KEY}`).then(response => {
     if (!response.ok) {
       throw new Error('response.statusText');
@@ -31,7 +40,7 @@ function renderCats(cats) {
     .join('');
 //   console.log(marcup);
   
-  select.insertAdjacentHTML('beforeend', marcup);
+  refs.select.insertAdjacentHTML('beforeend', marcup);
 }
 
 
