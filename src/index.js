@@ -4,6 +4,7 @@ const API_KEY =
 
 const select = document.querySelector(".breed-select");
 // console.log(select)
+
 function fetchBreeds() {
   return fetch(`${BASE_URL}/breeds?api_key=${API_KEY}`).then(response => {
     if (!response.ok) {
@@ -14,20 +15,22 @@ function fetchBreeds() {
 }
 
 fetchBreeds()
-  .then(data => {
-    // console.log(data);
-    renderCats(data);
+  .then(cats => {
+    // console.log(cats);
+
+    renderCats(cats);
   })
   .catch(error => console.log(error));
 
 
-function renderCats(data) {
-  const marcup = data
+function renderCats(cats) {
+  const marcup = cats
     .map(({ id, name }) => {
       return `<option value=${id}>${name}</option>`;
     })
     .join('');
 //   console.log(marcup);
+  
   select.insertAdjacentHTML('beforeend', marcup);
 }
 
