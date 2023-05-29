@@ -2,16 +2,17 @@ import { fetchBreeds } from './cat-api.js';
 import { fetchCatByBreed } from './cat-api.js';
 
 const refs = {
-  select: document.querySelector('.breed-select'),
+  select: document.querySelector('select'),
   loader: document.querySelector('.loader'),
   error: document.querySelector('.error'),
   catInfo: document.querySelector('.cat-info'),
 };
 
-fetchBreeds()
-  .then(cats => {
-    renderCats(cats);
-  });
+fetchBreeds().then(cats => {
+  renderCats(cats);
+  refs.loader.classList.add('unvisible');
+  refs.select.classList.remove('unvisible');
+});
 
 function renderCats(cats) {
   const marcup = cats
@@ -25,8 +26,9 @@ function renderCats(cats) {
 refs.select.addEventListener('change', onSelectChange);
 
 function onSelectChange(event) {
-  fetchCatByBreed(event.target.value)
-    .then(breed => renderBreeds(breed))
+  refs.loader.classList.remove('unvisible');
+  const breedId = event.target.value;
+  fetchCatByBreed(breedId).then(breed => renderBreeds(breed));
 }
 
 function renderBreeds(breed) {
@@ -38,4 +40,5 @@ function renderBreeds(breed) {
     .join('');
 
   refs.catInfo.insertAdjacentHTML('beforeend', marcupBreeds);
+  refs.loader.classList.add('unvisible');
 }
