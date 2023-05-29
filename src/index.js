@@ -11,8 +11,7 @@ const refs = {
 fetchBreeds()
   .then(cats => {
     renderCats(cats);
-  })
-  .catch(error => console.log(error));
+  });
 
 function renderCats(cats) {
   const marcup = cats
@@ -28,7 +27,6 @@ refs.select.addEventListener('change', onSelectChange);
 function onSelectChange(event) {
   fetchCatByBreed(event.target.value)
     .then(breed => renderBreeds(breed))
-    .catch(error => console.log(error));
 }
 
 function renderBreeds(breed) {

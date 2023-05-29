@@ -3,12 +3,12 @@ const API_KEY =
   'live_Yev63kKIKQlvuwfV91tmMhA4RcWdQRKBtpQEc40LBA3Gqtc0uo9ZdRzJSAOtGlda';
 
 export const fetchBreeds = () => {
-  return fetch(`${BASE_URL}/breeds?api_key=${API_KEY}`).then(response => {
-    if (!response.ok) {
-      throw new Error('response.statusText');
-    }
-    return response.json();
-  });
+    return fetch(`${BASE_URL}/breeds?api_key=${API_KEY}`).then(response => {
+        if (!response.ok) {
+            throw new Error('response.statusText');
+        }
+        return response.json();
+    }).catch(error => console.log(error));
 };
 
 export const fetchCatByBreed = breedId => {
@@ -19,5 +19,5 @@ export const fetchCatByBreed = breedId => {
       throw new Error('response.statusText');
     }
     return response.json();
-  });
+  }).catch(error => console.log(error));
 };
