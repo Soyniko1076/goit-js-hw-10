@@ -34,13 +34,15 @@ function renderCats(cats) {
   refs.select.insertAdjacentHTML('beforeend', marcup);
 }
 
+refs.select.addEventListener('change', onSelectChange);
 
-
-refs.select.addEventListener('change', fetchCatByBreed);
+function onSelectChange(event) {
+  fetchCatByBreed(event.target.value)
+    .then(data => renderBreeds(data))
+    .catch(error => console.log(error));
+}
 
 function fetchCatByBreed(breedId) {
-  // console.log(breedId)
-
   return fetch(
     `${BASE_URL}/images/search?api_key=${API_KEY}&breed_ids=${breedId}`
   ).then(response => {
@@ -51,4 +53,15 @@ function fetchCatByBreed(breedId) {
   });
 }
 
-fetchCatByBreed().then(data => console.log(data)).catch(error => console.log(error))
+function renderBreeds(data) {
+  const marcupBreeds = data
+    .map(({url, breeds }) => {
+      return `<ul><li><img src="${url}" width='300'><h2>${breeds[0].name}</h2><p>${breeds[0].description}</p><p>${breeds[0].temperament}</p></li></ul>`;
+    })
+    .join('');
+
+  refs.catInfo.insertAdjacentHTML('beforeend', marcupBreeds)
+
+  console.log(data);
+}
+
