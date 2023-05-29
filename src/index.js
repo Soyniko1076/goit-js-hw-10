@@ -1,7 +1,5 @@
-const BASE_URL = 'https://api.thecatapi.com/v1';
-const API_KEY =
-  'live_Yev63kKIKQlvuwfV91tmMhA4RcWdQRKBtpQEc40LBA3Gqtc0uo9ZdRzJSAOtGlda';
-const BREEDS_IDS = 'breed_ids';
+import { fetchBreeds } from './cat-api.js';
+import { fetchCatByBreed } from './cat-api.js';
 
 const refs = {
   select: document.querySelector('.breed-select'),
@@ -9,15 +7,6 @@ const refs = {
   error: document.querySelector('.error'),
   catInfo: document.querySelector('.cat-info'),
 };
-
-function fetchBreeds() {
-  return fetch(`${BASE_URL}/breeds?api_key=${API_KEY}`).then(response => {
-    if (!response.ok) {
-      throw new Error('response.statusText');
-    }
-    return response.json();
-  });
-}
 
 fetchBreeds()
   .then(cats => {
@@ -38,30 +27,16 @@ refs.select.addEventListener('change', onSelectChange);
 
 function onSelectChange(event) {
   fetchCatByBreed(event.target.value)
-    .then(data => renderBreeds(data))
+    .then(breed => renderBreeds(breed))
     .catch(error => console.log(error));
 }
 
-function fetchCatByBreed(breedId) {
-  return fetch(
-    `${BASE_URL}/images/search?api_key=${API_KEY}&breed_ids=${breedId}`
-  ).then(response => {
-    if (!response.ok) {
-      throw new Error('response.statusText');
-    }
-    return response.json();
-  });
-}
-
-function renderBreeds(data) {
-  const marcupBreeds = data
-    .map(({url, breeds }) => {
+function renderBreeds(breed) {
+  const marcupBreeds = breed
+    .map(({ url, breeds }) => {
       return `<ul><li><img src="${url}" width='300'><h2>${breeds[0].name}</h2><p>${breeds[0].description}</p><p>${breeds[0].temperament}</p></li></ul>`;
     })
     .join('');
 
-  refs.catInfo.insertAdjacentHTML('beforeend', marcupBreeds)
-
-  console.log(data);
+  refs.catInfo.insertAdjacentHTML('beforeend', marcupBreeds);
 }
-
