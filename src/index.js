@@ -28,6 +28,7 @@ refs.select.addEventListener('change', onSelectChange);
 function onSelectChange(event) {
   refs.loader.classList.remove('unvisible');
   const breedId = event.target.value;
+  refs.catInfo.innerHTML = '';
   fetchCatByBreed(breedId).then(breed => renderBreeds(breed));
 }
 
