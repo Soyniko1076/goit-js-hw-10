@@ -12,6 +12,9 @@ fetchBreeds().then(cats => {
   renderCats(cats);
   refs.loader.classList.add('unvisible');
   refs.select.classList.remove('unvisible');
+}).catch(error => {
+  console.log(error);
+refs.error.classList.remove('unvisible')
 });
 
 function renderCats(cats) {
