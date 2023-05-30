@@ -35,12 +35,13 @@ function onSelectChange(event) {
   refs.loader.classList.remove('unvisible');
   const breedId = event.target.value;
   refs.catInfo.innerHTML = '';
-  fetchCatByBreed(breedId).then(breed =>
-    renderBreeds(breed)).catch(error => {
+  fetchCatByBreed(breedId)
+    .then(breed => renderBreeds(breed))
+    .catch(error => {
       console.log(error);
       refs.error.classList.remove('unvisible');
       refs.loader.classList.add('unvisible');
-    })
+    });
 }
 
 function renderBreeds(breed) {
