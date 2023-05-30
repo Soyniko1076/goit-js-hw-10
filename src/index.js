@@ -8,14 +8,17 @@ const refs = {
   catInfo: document.querySelector('.cat-info'),
 };
 
-fetchBreeds().then(cats => {
-  renderCats(cats);
-  refs.loader.classList.add('unvisible');
-  refs.select.classList.remove('unvisible');
-}).catch(error => {
-  console.log(error);
-refs.error.classList.remove('unvisible')
-});
+fetchBreeds()
+  .then(cats => {
+    renderCats(cats);
+    refs.loader.classList.add('unvisible');
+    refs.select.classList.remove('unvisible');
+  })
+  .catch(error => {
+    console.log(error);
+    refs.loader.classList.add('unvisible');
+    refs.error.classList.remove('unvisible');
+  });
 
 function renderCats(cats) {
   const marcup = cats
@@ -32,13 +35,18 @@ function onSelectChange(event) {
   refs.loader.classList.remove('unvisible');
   const breedId = event.target.value;
   refs.catInfo.innerHTML = '';
-  fetchCatByBreed(breedId).then(breed => renderBreeds(breed));
+  fetchCatByBreed(breedId).then(breed =>
+    renderBreeds(breed)).catch(error => {
+      console.log(error);
+      refs.error.classList.remove('unvisible');
+      refs.loader.classList.add('unvisible');
+    })
 }
 
 function renderBreeds(breed) {
   const marcupBreeds = breed
     .map(({ url, breeds }) => {
-      return `<img src="${url}" width='400' hight='auto'><div class="wrapper"><h1 class="title">${breeds[0].name}</h1><p class="description">${breeds[0].description}</p>
+      return `<img src="${url}" width='350' hight='auto'><div class="wrapper"><h1 class="title">${breeds[0].name}</h1><p class="description">${breeds[0].description}</p>
       <span class="accent">Temperament: </span><p>${breeds[0].temperament}</p></div>`;
     })
     .join('');
