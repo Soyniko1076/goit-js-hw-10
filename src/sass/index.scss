@@ -4,3 +4,25 @@
 .unvisible {
     display: none;
 }
+
+.wrapper {
+    padding: 20px;
+    width: auto;
+}
+
+
+.cat-info {
+    display: flex;
+}
+
+.breed-select {
+    margin-bottom: 10px;
+}
+
+.accent {
+    font-weight: 700;
+}
+
+.loader {
+     font-weight: 700;
+}

@@ -35,8 +35,8 @@ function onSelectChange(event) {
 function renderBreeds(breed) {
   const marcupBreeds = breed
     .map(({ url, breeds }) => {
-      return `<img src="${url}" width='300'><h1>${breeds[0].name}</h1><p>${breeds[0].description}</p>
-      <h3>Temperament: </h3><p>${breeds[0].temperament}</p>`;
+      return `<img src="${url}" width='400' hight='auto'><div class="wrapper"><h1>${breeds[0].name}</h1><p>${breeds[0].description}</p>
+      <span class="accent">Temperament: </span><p>${breeds[0].temperament}</p></div>`;
     })
     .join('');
 
