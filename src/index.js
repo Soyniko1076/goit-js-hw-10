@@ -1,10 +1,11 @@
 import { fetchBreeds } from './cat-api.js';
 import { fetchCatByBreed } from './cat-api.js';
-import SlimSelect from 'slim-select'
+import SlimSelect from 'slim-select';
+import 'slim-select/dist/slimselect.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const refs = {
-  select: document.getElementById('selectElement'),
+  select: document.getElementById('single'),
   loader: document.querySelector('.loader'),
   error: document.querySelector('.error'),
   catInfo: document.querySelector('.cat-info'),
@@ -13,6 +14,7 @@ const refs = {
 fetchBreeds()
   .then(cats => {
     renderCats(cats);
+
     refs.loader.classList.add('unvisible');
     refs.select.classList.remove('unvisible');
   })
@@ -29,6 +31,10 @@ function renderCats(cats) {
     })
     .join('');
   refs.select.insertAdjacentHTML('beforeend', marcup);
+
+  new SlimSelect({
+    select: '#single',
+  });
 }
 
 refs.select.addEventListener('change', onSelectChange);

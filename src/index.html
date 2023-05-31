@@ -4,23 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Homework 10</title>
-    <script src="https://unpkg.com/slim-select@latest/dist/slimselect.min.js"></script>
-    <link href="https://unpkg.com/slim-select@latest/dist/slimselect.css" rel="stylesheet"></link>
-   
     <link rel="stylesheet" href="./sass/index.scss" />
-     <script src="index.js" type="module"></script>
+    <script src="index.js" type="module"></script>
   </head>
   <body class="container">
-    <select id="selectElement" class="unvisible"></select>
+    <select id="single" class="unvisible"></select>
     <p class="loader"></p>
     <p class="error unvisible">
       Oops! Something went wrong! Try reloading the page!
     </p>
     <div class="cat-info"></div>
-    <script>
-      new SlimSelect({
-        select: '#selectElement'
-      });
-    </script>
   </body>
 </html>
